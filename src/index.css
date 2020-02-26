@@ -1,0 +1,67 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.movie-div {
+  min-width: 200px;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-div img {
+  transition: transform 0.5s ease;
+}
+
+.movie-div:hover img {
+  transform: scale(1.2);
+}
+.search-input {
+  border: solid 1px #d7d8da;
+  width: 50%;
+}
+.nav-bar {
+  background-color: rgb(92, 89, 89);
+}
+.nav {
+  color: rgb(155, 143, 143);
+}
+.nav:hover {
+  color: rgb(182, 172, 172);
+  text-decoration: none;
+}
+.hover-button {
+  cursor: pointer;
+}
+
+.fav-div {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.fav-div .button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.fav-button {
+  background-image: url("../public/fav.png");
+}
+
+.watchLater-button {
+  background-image: url("../public/watchLater.png");
+}
+
+.hover-button .hover-button--on,
+.hover-button:hover .hover-button--off {
+  display: none;
+}
+
+.hover-button:hover .hover-button--on {
+  display: inline;
+}
