@@ -6,9 +6,7 @@
   "scripts": {
     "webpack": "webpack -wd",
     "start": "node lib/server.js",
-    "clean:build": "rimraf ./public && mkdir public",
     "test": "jest",
-    "prebuild": "npm run clean:build",
     "build": "webpack --config webpack.config.js",
     "postbuild": "node lib/server.js"
   },

@@ -2,20 +2,11 @@ import React from "react";
 import Movie from "./Movie";
 
 const MovieList = React.forwardRef((props, ref) => {
-  const { handleSearch, query, movies, handleClick, loading } = props;
+  const {movies, handleClick } = props;
   return (
-    <>
-      <div className="d-flex justify-content-center mt-2">
-        <input
-          className="search-input form-control"
-          type="text"
-          placeholder="Search Movies"
-          onChange={handleSearch}
-          value={query}
-        />
-      </div>
-      <div className="d-flex flex-wrap ml-3 movie-container">
-        {movies.map((movie, i) => {
+    <div className="d-flex flex-wrap ml-3 movie-container">
+      {movies.map((movie, i) => {
+        if (movie.poster_path) {
           return (
             <Movie
               key={movie.id + i}
@@ -26,16 +17,11 @@ const MovieList = React.forwardRef((props, ref) => {
               ref={ref}
             />
           );
-        })}
-      </div>
-      {loading ? (
-        <div className="d-flex flex-column m-auto">
-          <p className="result-loading">loading ...</p>
-        </div>
-      ) : (
-        ""
-      )}
-    </>
+        } else {
+          return null;
+        }
+      })}
+    </div>
   );
 });
 export default MovieList;

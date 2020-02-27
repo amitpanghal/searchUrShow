@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Movie from "../Movie";
+import MovieList from "../MovieList";
+import CustomMessage from "../../common/CustomMessage";
 import * as movieActions from "../../../../lib/redux/actions/movieAction";
 
 const FavMovies = ({
@@ -30,28 +31,15 @@ const FavMovies = ({
   const getMovieFromMovieListById = movieId => {
     return favMovies.find(m => parseInt(m.id) === parseInt(movieId));
   };
-  if (favMovies.length > 0) {
-    return (
-      <div className="d-flex flex-wrap ml-3">
-        {favMovies.map((movie, i) => {
-          return (
-            <Movie
-              key={movie.id}
-              movie={movie}
-              index={i}
-              handleClick={handleClick}
-            />
-          );
-        })}
-      </div>
-    );
-  } else {
-    return (
-      <div className="d-flex flex-column m-auto">
-        <p className="result-loading">No movie added to Favorite list</p>
-      </div>
-    );
-  }
+  return (
+    <>
+      <MovieList movies={favMovies} handleClick={handleClick} />
+      <CustomMessage
+        checkForProp={favMovies.length === 0}
+        messageText={"No Movie added to Fav list"}
+      />
+    </>
+  );
 };
 
 const mapStateToProps = state => {

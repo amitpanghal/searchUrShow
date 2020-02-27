@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 import * as movieActions from "../../../lib/redux/actions/movieAction";
 import MovieList from "./MovieList";
 import useMovieSearch from "../customHooks/useMovieSearch";
+import SearchBox from "../common/SearchBox";
+import CustomMessage from "../common/CustomMessage";
 
 const ManageMovies = ({
-  movies,
+  searchedMovies,
+  latestMovies,
   initialLoad,
   loadLatestMovies,
   loadSearchedMovies,
@@ -14,12 +17,13 @@ const ManageMovies = ({
   saveOrUpdateFavMovies,
   saveOrUpdateWatchLaterMovies,
   resetLatestMovies,
-  loadMoreSearchedMovies,
-  total_pages
+  loadMoreSearchedMovies
 }) => {
   const [query, setQuery] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+  const observer = useRef();
+
   const { loading } = useMovieSearch(
     query,
     page,
@@ -30,7 +34,8 @@ const ManageMovies = ({
     loadMoreSearchedMovies,
     initialLoad
   );
-  let observer = useRef();
+
+  const moviesToShow = query.length > 0 ? searchedMovies : latestMovies;
   let lastMovieRef = useCallback(
     node => {
       if (loading) return;
@@ -38,7 +43,7 @@ const ManageMovies = ({
       observer.current = new IntersectionObserver(enteries => {
         if (enteries[0].isIntersecting && hasMore) {
           setPage(prevState => prevState + 1);
-          setHasMore(page < total_pages);
+          setHasMore(page < moviesToShow.total_pages);
         }
       });
       if (node) observer.current.observe(node);
@@ -71,32 +76,27 @@ const ManageMovies = ({
   };
 
   const getMovieFromMovieListById = movieId => {
-    return movies.find(m => parseInt(m.id) === parseInt(movieId));
+    return moviesToShow.results.find(m => parseInt(m.id) === parseInt(movieId));
   };
 
   return (
-    <MovieList
-      handleSearch={handleSearch}
-      query={query}
-      movies={movies}
-      handleClick={handleClick}
-      loading={loading}
-      ref={lastMovieRef}
-    />
+    <>
+      <SearchBox handleSearch={handleSearch} query={query} />
+      <MovieList
+        movies={moviesToShow.results}
+        handleClick={handleClick}
+        ref={lastMovieRef}
+      />
+      <CustomMessage checkForProp={loading} messageText={"Loading..."} />
+    </>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    movies:
-      state.searchedMovies.results.length > 0
-        ? state.searchedMovies.results
-        : state.latestMovies.results,
-    initialLoad: state.latestMovies.results.length > 0,
-    total_pages:
-      state.searchedMovies.results.length > 0
-        ? state.searchedMovies.total_pages
-        : state.latestMovies.total_pages
+    searchedMovies: state.searchedMovies,
+    latestMovies: state.latestMovies,
+    initialLoad: state.latestMovies.results.length > 0
   };
 };
 

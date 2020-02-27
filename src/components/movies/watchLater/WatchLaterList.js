@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Movie from "../Movie";
+import MovieList from "../MovieList";
+import CustomMessage from "../../common/CustomMessage";
 import * as movieActions from "../../../../lib/redux/actions/movieAction";
 
 const WatchLaterList = ({
@@ -30,28 +31,15 @@ const WatchLaterList = ({
   const getMovieFromMovieListById = movieId => {
     return watchLaterMovies.find(m => parseInt(m.id) === parseInt(movieId));
   };
-  if (watchLaterMovies.length > 0) {
-    return (
-      <div className="d-flex flex-wrap ml-3">
-        {watchLaterMovies.map((movie, i) => {
-          return (
-            <Movie
-              key={movie.id}
-              movie={movie}
-              index={i}
-              handleClick={handleClick}
-            />
-          );
-        })}
-      </div>
-    );
-  } else {
-    return (
-      <div className="d-flex flex-column m-auto">
-        <p className="result-loading">No Movie added to Watch Later list </p>
-      </div>
-    );
-  }
+  return (
+    <>
+      <MovieList movies={watchLaterMovies} handleClick={handleClick} />
+      <CustomMessage
+        checkForProp={watchLaterMovies.length === 0}
+        messageText={"No Movie added to Watch later list"}
+      />
+    </>
+  );
 };
 
 const mapStateToProps = state => {
