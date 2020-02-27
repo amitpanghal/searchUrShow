@@ -82,12 +82,19 @@ const ManageMovies = ({
   return (
     <>
       <SearchBox handleSearch={handleSearch} query={query} />
+      <CustomMessage
+        checkForProp={(!loading && query.length > 0 && moviesToShow.results.length === 0) || loading}
+        messageText={
+          (!loading && query.length > 0 && moviesToShow.results.length === 0)
+            ? `No Movie found for ${query}`
+            : "Loading..."
+        }
+      />
       <MovieList
         movies={moviesToShow.results}
         handleClick={handleClick}
         ref={lastMovieRef}
       />
-      <CustomMessage checkForProp={loading} messageText={"Loading..."} />
     </>
   );
 };
