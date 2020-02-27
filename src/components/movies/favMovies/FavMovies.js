@@ -5,7 +5,6 @@ import Movie from "../Movie";
 import * as movieActions from "../../../../lib/redux/actions/movieAction";
 
 const FavMovies = ({
-  movies,
   favMovies,
   saveOrUpdateFavMovies,
   saveOrUpdateWatchLaterMovies
@@ -29,30 +28,34 @@ const FavMovies = ({
   };
 
   const getMovieFromMovieListById = movieId => {
-    return movies.find(m => parseInt(m.id) === parseInt(movieId));
+    return favMovies.find(m => parseInt(m.id) === parseInt(movieId));
   };
-  return (
-    <div className="d-flex flex-wrap ml-3">
-      {favMovies.map((movie, i) => {
-        return (
-          <Movie
-            key={movie.id}
-            movie={movie}
-            index={i}
-            handleClick={handleClick}
-          />
-        );
-      })}
-    </div>
-  );
+  if (favMovies.length > 0) {
+    return (
+      <div className="d-flex flex-wrap ml-3">
+        {favMovies.map((movie, i) => {
+          return (
+            <Movie
+              key={movie.id}
+              movie={movie}
+              index={i}
+              handleClick={handleClick}
+            />
+          );
+        })}
+      </div>
+    );
+  } else {
+    return (
+      <div className="d-flex flex-column m-auto">
+        <p className="result-loading">No movie added to Favorite list</p>
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = state => {
   return {
-    movies:
-      state.searchedMovies.length > 0
-        ? state.searchedMovies
-        : state.latestMovies,
     favMovies: state.favMovies
   };
 };

@@ -41,12 +41,21 @@
   bottom: 0;
   right: 0;
 }
-.fav-div .button {
+.fav-div button {
   width: 24px;
   height: 24px;
   border: none;
   background-color: #fff;
   border-radius: 50%;
+}
+
+.result-loading {
+  font: 40px;
+  font-weight: bold;
+}
+
+.selected {
+  background-color: rgb(199, 139, 71) !important;
 }
 
 .fav-button {

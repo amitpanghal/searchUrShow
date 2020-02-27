@@ -13,30 +13,32 @@ const ManageMovies = ({
   resetQueriedMovies,
   saveOrUpdateFavMovies,
   saveOrUpdateWatchLaterMovies,
-  resetLatestMovies
+  resetLatestMovies,
+  loadMoreSearchedMovies,
+  total_pages
 }) => {
   const [query, setQuery] = useState("");
-  const [mount, setMount] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const { loading } = useMovieSearch(
     query,
     page,
     resetQueriedMovies,
+    resetLatestMovies,
     loadSearchedMovies,
     loadLatestMovies,
-    initialLoad,
-    movies.length
+    loadMoreSearchedMovies,
+    initialLoad
   );
-
   let observer = useRef();
   let lastMovieRef = useCallback(
     node => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(enteries => {
-        if (enteries[0].isIntersecting) {
+        if (enteries[0].isIntersecting && hasMore) {
           setPage(prevState => prevState + 1);
-          console.log("visible");
+          setHasMore(page < total_pages);
         }
       });
       if (node) observer.current.observe(node);
@@ -44,15 +46,10 @@ const ManageMovies = ({
     [loading, initialLoad]
   );
 
-  useEffect(() => {
-    return () => {
-      resetLatestMovies();
-    };
-  }, [mount]);
-
   const handleSearch = e => {
     setPage(1);
     setQuery(e.target.value);
+    setHasMore(true);
   };
 
   const handleClick = e => {
@@ -92,10 +89,14 @@ const ManageMovies = ({
 const mapStateToProps = state => {
   return {
     movies:
-      state.searchedMovies.length > 0
-        ? state.searchedMovies
-        : state.latestMovies,
-    initialLoad: state.latestMovies.length > 0
+      state.searchedMovies.results.length > 0
+        ? state.searchedMovies.results
+        : state.latestMovies.results,
+    initialLoad: state.latestMovies.results.length > 0,
+    total_pages:
+      state.searchedMovies.results.length > 0
+        ? state.searchedMovies.total_pages
+        : state.latestMovies.total_pages
   };
 };
 
@@ -105,7 +106,8 @@ const mapDispatchToProps = {
   resetQueriedMovies: movieActions.resetQueriedMovies,
   saveOrUpdateFavMovies: movieActions.saveOrUpdateFavMovies,
   saveOrUpdateWatchLaterMovies: movieActions.saveOrUpdateWatchLaterMovies,
-  resetLatestMovies: movieActions.resetLatestMovies
+  resetLatestMovies: movieActions.resetLatestMovies,
+  loadMoreSearchedMovies: movieActions.loadMoreSearchedMovies
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageMovies);

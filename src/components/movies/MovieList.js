@@ -18,7 +18,7 @@ const MovieList = React.forwardRef((props, ref) => {
         {movies.map((movie, i) => {
           return (
             <Movie
-              key={movie.id  + movie.title}
+              key={movie.id + i}
               movie={movie}
               index={i}
               handleClick={handleClick}
@@ -28,7 +28,13 @@ const MovieList = React.forwardRef((props, ref) => {
           );
         })}
       </div>
-      {loading ? <p className="App-intro">loading ...</p> : ""}
+      {loading ? (
+        <div className="d-flex flex-column m-auto">
+          <p className="result-loading">loading ...</p>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 });

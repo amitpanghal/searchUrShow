@@ -4,8 +4,10 @@ export default function useMovieSearch(
   query,
   page,
   resetQueriedMovies,
+  resetLatestMovies,
   loadSearchedMovies,
   loadLatestMovies,
+  loadMoreSearchedMovies,
   initialLoad
 ) {
   const [loading, setLoading] = useState(false);
@@ -13,13 +15,17 @@ export default function useMovieSearch(
     if (query.length === 0) {
       resetQueriedMovies();
     }
+
+    return () => {
+      resetLatestMovies();
+    };
   }, [query]);
 
   useEffect(() => {
     if (query.length > 0) {
       setLoading(true);
       let timeOut = setTimeout(() => {
-        loadSearchedMovies(query, page)
+        loadSearchedMovies(query)
           .catch(error => {
             alert("Error while loading movies" + error);
           })
@@ -31,7 +37,26 @@ export default function useMovieSearch(
         clearTimeout(timeOut);
       };
     }
-  }, [query, page]);
+  }, [query]);
+
+  useEffect(() => {
+    if (page > 1 && query.length > 0) {
+      setLoading(true);
+      let timeOut = setTimeout(() => {
+        loadMoreSearchedMovies(query, page)
+          .catch(error => {
+            alert("Error while loading movies" + error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }, 250);
+      return () => {
+        console.log("done");
+        clearTimeout(timeOut);
+      };
+    }
+  }, [page]);
 
   useEffect(() => {
     if (!initialLoad || (page > 1 && query.length === 0)) {
