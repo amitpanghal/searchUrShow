@@ -5,8 +5,8 @@
 }
 
 .movie-div {
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 54px;
+  min-height: 54px;
   position: relative;
   overflow: hidden;
 }

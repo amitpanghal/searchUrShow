@@ -22,7 +22,7 @@ const ManageMovies = ({
   const [query, setQuery] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
-  const observer = useRef();
+  
 
   const { loading } = useMovieSearch(
     query,
@@ -36,6 +36,8 @@ const ManageMovies = ({
   );
 
   const moviesToShow = query.length > 0 ? searchedMovies : latestMovies;
+  
+  const observer = useRef();
   let lastMovieRef = useCallback(
     node => {
       if (loading) return;
@@ -83,9 +85,12 @@ const ManageMovies = ({
     <>
       <SearchBox handleSearch={handleSearch} query={query} />
       <CustomMessage
-        checkForProp={(!loading && query.length > 0 && moviesToShow.results.length === 0) || loading}
+        checkForProp={
+          (!loading && query.length > 0 && moviesToShow.results.length === 0) ||
+          loading
+        }
         messageText={
-          (!loading && query.length > 0 && moviesToShow.results.length === 0)
+          !loading && query.length > 0 && moviesToShow.results.length === 0
             ? `No Movie found for ${query}`
             : "Loading..."
         }

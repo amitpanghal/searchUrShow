@@ -27,7 +27,7 @@ export default function useMovieSearch(
       let timeOut = setTimeout(() => {
         loadSearchedMovies(query)
           .catch(error => {
-            alert("Error while loading movies" + error);
+            alert("Error while loading movies " + error);
           })
           .finally(() => {
             setLoading(false);
@@ -45,14 +45,13 @@ export default function useMovieSearch(
       let timeOut = setTimeout(() => {
         loadMoreSearchedMovies(query, page)
           .catch(error => {
-            alert("Error while loading movies" + error);
+            alert("Error while loading movies " + error);
           })
           .finally(() => {
             setLoading(false);
           });
       }, 250);
       return () => {
-        console.log("done");
         clearTimeout(timeOut);
       };
     }

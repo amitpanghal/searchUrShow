@@ -1,21 +1,24 @@
 import React from "react";
 import Movie from "./Movie";
+import AddMovie from "../common/AddMovie";
 
-const MovieList = React.forwardRef((props, ref) => {
-  const {movies, handleClick } = props;
+const MovieList = React.forwardRef(({ movies, handleClick }, ref) => {
   return (
-    <div className="d-flex flex-wrap ml-3 movie-container">
+    <div className="d-flex my-2 flex-wrap movie-container justify-content-center">
       {movies.map((movie, i) => {
         if (movie.poster_path) {
           return (
-            <Movie
+            <div
               key={movie.id + i}
-              movie={movie}
-              index={i}
-              handleClick={handleClick}
-              index={i === movies.length - 1}
-              ref={ref}
-            />
+              className="movie-div mt-1 mx-3 hover-button"
+            >
+              <Movie
+                movie={movie}
+                isLastMovie={i === movies.length - 1}
+                ref={ref}
+              />
+              <AddMovie movie={movie} handleClick={handleClick} />
+            </div>
           );
         } else {
           return null;
