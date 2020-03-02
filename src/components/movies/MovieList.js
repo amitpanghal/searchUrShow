@@ -9,7 +9,7 @@ const MovieList = React.forwardRef(({ movies, handleClick }, ref) => {
         if (movie.poster_path) {
           return (
             <div
-              key={movie.id + i}
+              key={movie.id + movie.title}
               className="movie-div mt-1 mx-3 hover-button"
             >
               <Movie

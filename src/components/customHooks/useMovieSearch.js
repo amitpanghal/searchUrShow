@@ -13,6 +13,7 @@ export default function useMovieSearch(
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (query.length === 0) {
+      setLoading(false);
       resetQueriedMovies();
     }
 

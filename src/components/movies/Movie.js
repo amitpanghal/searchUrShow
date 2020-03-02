@@ -1,8 +1,6 @@
 import React from "react";
-import MoviePreview from "./MoviePreview";
 
-const Movie = React.forwardRef((props, ref) => {
-  const { movie, isLastMovie } = props;
+const Movie = React.forwardRef(({ movie, isLastMovie }, ref) => {
   return (
     <>
       <img

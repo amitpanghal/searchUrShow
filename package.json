@@ -7,6 +7,7 @@
     "webpack": "webpack -wd",
     "start": "node lib/server.js",
     "test": "jest",
+    "prebuild": "jest",
     "build": "webpack --config webpack.config.js",
     "postbuild": "node lib/server.js"
   },
@@ -16,9 +17,6 @@
   },
   "author": "Amit Panghal",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/amitpanghal/searchUrShow/issues"
-  },
   "homepage": "https://github.com/amitpanghal/searchUrShow#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
@@ -28,8 +26,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "video-react": "^0.14.1"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -39,8 +36,13 @@
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^3.4.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "fetch-mock": "^9.0.0-beta.2",
     "jest": "^25.1.0",
+    "node-fetch": "^2.6.0",
     "react-test-renderer": "^16.12.0",
+    "redux-mock-store": "^1.5.4",
     "style-loader": "^1.1.3",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.6",
@@ -50,6 +52,11 @@
     "presets": [
       "@babel/preset-react",
       "@babel/preset-env"
+    ]
+  },
+  "jest": {
+    "setupFiles": [
+      "./testSetup.js"
     ]
   }
 }

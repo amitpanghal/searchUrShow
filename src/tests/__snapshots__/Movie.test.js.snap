@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movie should render an  image of movie poster 1`] = `
+<img
+  className="img-fluid"
+  src="http://image.tmdb.org/t/p/w1547GsM4mtM0worCtIVeiQt28HieeN.jpg"
+/>
+`;

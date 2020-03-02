@@ -1,7 +1,7 @@
 const _apiHost = process.env.API_URL;
 const _apiKey = process.env.API_KEY;
 
-async function request(url, params, method = "GET") {
+function request(url, params, method = "GET") {
   const options = {
     method,
     headers: {
@@ -17,10 +17,9 @@ async function request(url, params, method = "GET") {
     }
   }
 
-  const response = await fetch(_apiHost + url, options);
-  return response.status !== 200
-    ? handleError(response.error)
-    : handleResponse(response);
+  return fetch(_apiHost + url, options)
+    .then(handleResponse)
+    .catch(handleError);
 }
 
 const objectToQueryString = obj => {
@@ -31,7 +30,7 @@ const objectToQueryString = obj => {
     .join("&");
 };
 
-async function handleResponse(response) {
+function handleResponse(response) {
   if (response.ok) return response.json();
   throw new Error("Network response was not ok.");
 }

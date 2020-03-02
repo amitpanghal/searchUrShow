@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieList should render an movies 1`] = `
+<div
+  className="d-flex my-2 flex-wrap movie-container justify-content-center"
+>
+  <div
+    className="movie-div mt-1 mx-3 hover-button"
+  >
+    <img
+      className="img-fluid"
+      src="http://image.tmdb.org/t/p/w1547GsM4mtM0worCtIVeiQt28HieeN.jpg"
+    />
+    <div
+      className="fav-div hover-button--on"
+    >
+      <button
+        className="d-flex flex-column m-1 fav-button  selected"
+        name="fav"
+        onClick={[MockFunction]}
+        value={1}
+      />
+      <button
+        className="d-flex flex-column m-1 watchLater-button  "
+        name="watchLater"
+        onClick={[MockFunction]}
+        value={1}
+      />
+    </div>
+  </div>
+  <div
+    className="movie-div mt-1 mx-3 hover-button"
+  >
+    <img
+      className="img-fluid"
+      src="http://image.tmdb.org/t/p/w1547GsM4mtM0worCtIVeiQt28HiedN.jpg"
+    />
+    <div
+      className="fav-div hover-button--on"
+    >
+      <button
+        className="d-flex flex-column m-1 fav-button  selected"
+        name="fav"
+        onClick={[MockFunction]}
+        value={2}
+      />
+      <button
+        className="d-flex flex-column m-1 watchLater-button  "
+        name="watchLater"
+        onClick={[MockFunction]}
+        value={2}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MovieList should render an one movie if poster path is null 1`] = `
+<div
+  className="d-flex my-2 flex-wrap movie-container justify-content-center"
+>
+  <div
+    className="movie-div mt-1 mx-3 hover-button"
+  >
+    <img
+      className="img-fluid"
+      src="http://image.tmdb.org/t/p/w1547GsM4mtM0worCtIVeiQt28HieeN.jpg"
+    />
+    <div
+      className="fav-div hover-button--on"
+    >
+      <button
+        className="d-flex flex-column m-1 fav-button  selected"
+        name="fav"
+        onClick={[MockFunction]}
+        value={1}
+      />
+      <button
+        className="d-flex flex-column m-1 watchLater-button  "
+        name="watchLater"
+        onClick={[MockFunction]}
+        value={1}
+      />
+    </div>
+  </div>
+</div>
+`;

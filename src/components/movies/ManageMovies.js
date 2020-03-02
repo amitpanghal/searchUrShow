@@ -7,7 +7,7 @@ import useMovieSearch from "../customHooks/useMovieSearch";
 import SearchBox from "../common/SearchBox";
 import CustomMessage from "../common/CustomMessage";
 
-const ManageMovies = ({
+export const ManageMovies = ({
   searchedMovies,
   latestMovies,
   initialLoad,
@@ -22,7 +22,6 @@ const ManageMovies = ({
   const [query, setQuery] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
-  
 
   const { loading } = useMovieSearch(
     query,
@@ -36,7 +35,6 @@ const ManageMovies = ({
   );
 
   const moviesToShow = query.length > 0 ? searchedMovies : latestMovies;
-  
   const observer = useRef();
   let lastMovieRef = useCallback(
     node => {
