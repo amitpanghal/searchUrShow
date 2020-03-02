@@ -2,7 +2,6 @@ import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "video-react/dist/video-react.css";
 import { Provider as ReduxProvider } from "react-redux";
 
 import "./index.css";
